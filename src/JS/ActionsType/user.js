@@ -9,3 +9,8 @@
  export const USER_LOAD = "USER_LOAD";
 export const USER_SUCC = "USER_SUCC";
 export const USER_FAIL = "USER_FAIL";
+
+
+export const LOGOUT = "LOGOUT";
+
+export const CURRENT_USER=  "CURRENT_USER"

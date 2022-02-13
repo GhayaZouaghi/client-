@@ -1,0 +1,3 @@
+export const DEVELOPERS_LOAD = "USER_LOAD";
+export const DEVELOPERS_SUCC = "USER_SUCC";
+export const DEVELOPERS_FAIL = "USER_FAIL";

@@ -1,63 +1,69 @@
 import React from "react";
+import "./NavBar.css";
+import { Nav, Container, Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./NavBar.css";
-import {
-  Container,
-  Navbar,
-  Nav,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
-import "./NavBar.css";
-// import logo from "../../assests/logo.png";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logout } from "../../JS/Actions/user";
+
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.userReducer.isAuth);
+  console.log(isAuth);
   return (
-    <div className="baro">
-      <Navbar bg="light" expand="lg">
-        <Container fluid>
-          <Link to="/">
-            <Navbar.Brand href="#">
-              <h2>Logo Devnet</h2>
-            </Navbar.Brand>
-          </Link>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <Link to="/">
-                <Nav.Link href="#action1">Home</Nav.Link>
-              </Link>
-              <Link to="/developers">
-                <Nav.Link href="#action2">Developers</Nav.Link>
-              </Link>
-              <Link to="/contact">
-                <Nav.Link href="#action3">Contact US </Nav.Link>
-              </Link>
-              <Link to="/login">
-                <Nav.Link href="#action4">Login</Nav.Link>
-              </Link>
-              <Link to="/register">
-                <Nav.Link href="#action5">Register</Nav.Link>
-              </Link>
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button className="btn" variant="outline-success">Search</Button>
-              </Form>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </div>
+    <Navbar
+      className="hed"
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+    >
+      <Container>
+        <Nav.Link className="devnet">
+          <a className="navbar-brand" href="#1">
+            Dev<b>Net</b>
+          </a>
+        </Nav.Link>
+
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav" className="responsive-nav">
+          <Nav className="me-auto">
+            <Link to="/">
+              <Nav.Link href="#home">Home</Nav.Link>
+            </Link>
+            <Link to="/developers">
+              <Nav.Link href="#community">Community</Nav.Link>
+            </Link>
+            <Link to="/news">
+              <Nav.Link href="#news">News</Nav.Link>
+            </Link>
+          </Nav>
+          <Nav>
+            {isAuth ? (
+              <>
+                <Link to="/myprofile">
+                  <Nav.Link href="#myprofile">My profile</Nav.Link>
+                </Link>
+                <Link to="/login">
+                  <Button onClick={() => dispatch(logout())}>Logout</Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/register">
+                  <Nav.Link eventKey={2} href="#sign up">
+                    Sign Up
+                  </Nav.Link>
+                </Link>
+                <Link to="/login">
+                  <Button>Login</Button>
+                </Link>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
-
 export default NavBar;

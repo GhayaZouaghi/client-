@@ -1,89 +1,87 @@
-import React, { useState } from "react";
+import React /*,{ useState } */ from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
+// import { useDispatch } from "react-redux";
 import "./Login.css";
 
-import { login } from "../../JS/Actions/user";
+// import { login } from "../../JS/Actions/user";
 
 import clav from "../../assests/clavier.jpg";
 
-const Login = () => {
-  const [user, setUser] = useState({ email: "", password: "" });
+const Login = (/*{ history }*/) => {
+  // const [user, setUser] = useState({ email: "", password: "" });
 
-  const handleChangeUser = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  // const handleChangeUser = (e) => {
+  //   setUser({ ...user, [e.target.name]: e.target.value });
+  // };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   return (
     <div className="land">
-      <img src={clav} alt="login" style={{ maxWidth: "300px" }} />
-      <div className="maincontainer">
-        <div class="container">
-          <div class="card bg-light">
-            <article class="card-body mx-auto" style={{ maxWidth: "400px" }}>
-              <h4 class="card-title mt-3 text-center">Log In</h4>
+      <img
+        src={clav}
+        alt="login"
+        style={{ maxWidth: "400px", maxHeight: "400px" }}
+      />
 
-              <form>
-                <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      {" "}
-                      <i class="fa fa-envelope"></i>{" "}
-                    </span>
+      <div className="form-body">
+        <div className="row">
+          <div className="form-holder">
+            <div className="form-content">
+              <div className="form-items">
+                <h3>lOGIN</h3>
+                <p>Fill in the data below</p>
+                <form className="requires-validation" noValidate>
+                  <div className="col-md-12">
+                    <input
+                      className="form-control"
+                      type="email"
+                      name="email"
+                      placeholder="E-mail Address"
+                      required
+                    />
+                    <div className="valid-feedback">Email field is valid!</div>
+                    <div className="invalid-feedback">
+                      Email field cannot be blank!
+                    </div>
                   </div>
-                  <input
-                    name=""
-                    class="form-control"
-                    placeholder="Email address"
-                    type="email"
-                    value={user.email}
-                    onChange={handleChangeUser}
-                  />
-                </div>
-
-                <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      {" "}
-                      <i class="fa fa-lock"></i>{" "}
-                    </span>
+                  <div className="valid-feedback">You selected a position!</div>
+                  <div className="col-md-12">
+                    <input
+                      className="form-control"
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      required
+                      // value={user.password}
+                      // onChange={handleChangeUser}
+                    />
                   </div>
-                  <input
-                    class="form-control"
-                    placeholder="Enter your password"
-                    type="password"
-                    value={user.password}
-                    onChange={handleChangeUser}
-                  />
-                </div>
-
-                <div class="form-group">
-                  <button
-                    type="button"
-                    class="btn btn-primary btn-block"
-                    onClick={() => dispatch(login(user))}
-                  >
-                    {" "}
-                    LOG IN{" "}
-                  </button>
-                </div>
-
-                <p class="text-center">
-                  You Don't Have an account?
-                  <Link to="/register">
-                    {" "}
-                    <a href="#3">Sign Up</a>{" "}
-                  </Link>
-                </p>
-              </form>
-            </article>
+                  <div className="form-button mt-3">
+                    <button
+                      id="submit"
+                      type="submit"
+                      className="btn btn-primary"
+                      // onClick={() => dispatch(login(user, history))}
+                    >
+                      Login
+                    </button>
+                  </div>
+                  <p class="text-center">
+                    You Don't Have an account?
+                    <Link to="/register">
+                      {" "}
+                      <a href="#3" style={{ color: "white" }}>
+                        Sign Up
+                      </a>
+                    </Link>
+                  </p>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default Login;

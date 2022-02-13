@@ -1,141 +1,126 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
-import {register} from '../../JS/Actions/user'
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../JS/Actions/user";
 
 import "./Register.css";
 import join from "../../assests/developpeur.jpeg";
 
+const Register = ({ history }) => {
+const errors = useSelector((state) => state.userReducer.errors);
+ const [newUser, setNewUser] = useState({
+   name: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
+  const dispatch = useDispatch();
 
-const Register = () => {
+  const handleChangeNewUser = (e) => {
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  };
 
-  const [newUser, setNewUser]=useState({name: "", email: "", password: "", phone: ""})
-  const dispatch =useDispatch()
-
-  const handleChangeNewUser=(e)=>{
-    setNewUser({...newUser, [e.target.name]: e.target.value })
-  }
-
-  return (
-    <div className="reg">
-      <div className="maincontainer">
-        <div class="container">
-          <div class="card bg-light">
-            <article class="card-body mx-auto" style={{ maxWidth: "800px" }}>
-              <h4 class="card-title mt-3 text-center">Create Account</h4>
-              <p class="text-center">Get started with your free account</p>
-
-              <form>
-                <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      {" "}
-                      <i class="fa fa-user"></i>{" "}
-                    </span>
-                  </div>
-                  <input
-                    name=""
-                    class="form-control"
-                    placeholder="Full name"
-                    type="text"
-                    value={newUser.name}
+return (
+    <div className="reg"/* style={{ display:"flex"/*, flexDirection:"row" }}*/>
+      <img src={join} alt="register" style={{ maxwidth: "100px" }} />
+      <div className="form-body">
+        <div className="row">
+          <div className="form-holder">
+            <div className="form-content">
+              <div className="form-items">
+                <h3>Register Today</h3>
+                {errors &&
+              errors.map((error) => (
+          <h5 style={{ color: "red" }}>{errors.msg}</h5>))};
+                <p>Fill in the data below.</p>
+                <form className="requires-validation" noValidate>
+                  <div className="col-md-12">
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="name"
+                      placeholder="Full Name"
+                      required
+                      value={newUser.name}
+                      onChange={handleChangeNewUser}
+                    />
+                   </div>
+                  <div className="col-md-12">
+                    <input
+                      className="form-control"
+                      type="email"
+                      name="email"
+                      placeholder="E-mail Address"
+                      required
+                      value={newUser.email}
                     onChange={handleChangeNewUser}
-                  />
-                </div>
-                <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      {" "}
-                      <i class="fa fa-envelope"></i>{" "}
-                    </span>
-                  </div>
-                  <input
-                    name=""
-                    class="form-control"
-                    placeholder="Email address"
-                    type="email"
-                    value={newUser.email}
-                    onChange={handleChangeNewUser}
-                  />
-                </div>
-                <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      {" "}
-                      <i class="fa fa-phone"></i>{" "}
-                    </span>
-                  </div>
+                    />
 
-                  <input
-                    name=""
-                    class="form-control"
-                    placeholder="Phone number"
-                    type="text"
-                    value={newUser.phone}
+                    <div className="col-md-12">
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="phone"
+                      placeholder="Enter your phone Number"
+                      value={newUser.phone}
                     onChange={handleChangeNewUser}
-                  />
-                </div>
-                 {/* <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      {" "}
-                      <i class="fa fa-building"></i>{" "}
-                    </span>
-                   </div> 
-                    <select class="form-control"> 
-                    <option selected=""> Select job type</option>
-                    <option>Web Developer</option>
-                    <option>Full Stack Developer</option>
-                    <option>Mean Stack</option>
-                    <option>Mern Stack</option>
-                    <option>backend Developer</option>
-                    <option>frontend Developer</option>
-                    <option>data science</option>
-                  </select> 
-                </div>  */}
-                <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      {" "}
-                      <i class="fa fa-lock"></i>{" "}
-                    </span>
-                  </div>
-                  <input
-                    class="form-control"
-                    placeholder="Create password"
-                    type="password"
-                    value={newUser.password}
-                    onChange={handleChangeNewUser}
-                  />
-                </div>
+                    />
+</div>
+                      
 
-                <div class="form-group">
-                  <button type="button" class="btn btn-primary btn-block" onClick={()=>dispatch(register(newUser))}>
-                    {" "}
-                    Create Account{" "}
-                    
-                    </button>
+                  <div className="col-md-12">
+                    <input
+                      className="form-control"
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      required
+                      value={newUser.password}
+                    onChange={handleChangeNewUser}
+                    />
                    
-                </div>
-                <p class="text-center">
-                  Have an account?{" "}
-                  <Link to="/Login">
-                    <a href="#3">Log In</a>{" "}
-                  </Link>
-                </p>
-              </form>
-            </article>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      defaultValue
+                      id="invalidCheck"
+                      required
+                    />
+                    <label className="form-check-label">
+                      I confirm that all data are correct
+                    </label>
+                    
+                  </div>
+                  <div className="form-button mt-3">
+                    <button
+                      id="submit"
+                      type="submit"
+                      className="btn btn-primary"
+                      onClick={() => dispatch(register(newUser, history))}
+                    >
+                      Register
+                    </button>
+                  </div>
+                  </div>
+                  <p class="text-center">
+                    You Don't Have an account?
+                    <Link to="/login">
+                      {" "}
+                      <a href="#3" style={{ color: "white" }}>
+                        Login
+                      </a>
+                    </Link>
+                  </p>
+    
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <img src={join} alt="register" style={{ maxWidth: "800px" }} />
-      {/* color background */}
- {
-    document.body.style.backgroundColor = "#81B29A"
-}
     </div>
   );
-};
-
-export default Register;
+}
+export default Register
